@@ -1,11 +1,9 @@
 function onAddTodo() {
     const todoInput = document.getElementById("todo-input");
-    if (!Boolean(todoInput)) {
+    if (!todoInput) {
         return;
     }
     const todoList = document.getElementById('todo-container');
-
-    const thisTodoIndex = todoList.querySelectorAll("li").length;
 
     const todoItem = document.createElement('li');
     const todoText = document.createElement('p');
@@ -15,17 +13,17 @@ function onAddTodo() {
     const completeButton = document.createElement('button');
     completeButton.innerHTML = "Mark as complete";
     completeButton.onclick = function () {
-        onMarkAsComplete(thisTodoIndex);
+        onMarkAsComplete(todoItem);
     };
 
     const deleteButton = document.createElement('button');
     deleteButton.innerHTML = "Delete";
-    deleteButton.onclick = () => onDeleteTodo(thisTodoIndex);
+    deleteButton.onclick = () => onDeleteTodo(todoItem);
 
     const editButton = document.createElement('button');
     editButton.innerHTML = "Edit";
     editButton.onclick = function () {
-        onEditTodo(thisTodoIndex);
+        onEditTodo(todoItem);
     };
     
     todoItem.appendChild(todoText);
@@ -38,23 +36,17 @@ function onAddTodo() {
     todoInput.value = '';
 }
 
-function onMarkAsComplete(todoIndex) {
-    const todoList = document.getElementById('todo-container');
-    const todoItem = todoList.querySelector(`li[data-index='${todoIndex}']`);
+function onMarkAsComplete(todoItem) {
     const todoTextToUpdate = todoItem.querySelector('p');
     todoTextToUpdate.classList.add('complete');
 }
 
-function onDeleteTodo(todoIndex) {
-    const todoList = document.getElementById('todo-container');
-    const allTodoItems = todoList.querySelectorAll("li");
-    allTodoItems[todoIndex].remove();
+function onDeleteTodo(todoItem) {
+    todoItem.remove();
 }
 
-function onEditTodo(todoIndex) {
-    const todoList = document.getElementById('todo-container');
-    const allTodoItems = todoList.querySelectorAll("li");
-    const todoTextToEdit = allTodoItems[todoIndex].querySelector('p');
+function onEditTodo(todoItem) {
+    const todoTextToEdit = todoItem.querySelector('p');
     const newTodoText = prompt("Edit your todo item:", todoTextToEdit.innerHTML);
     if (newTodoText !== null && newTodoText.trim() !== "") {
         todoTextToEdit.innerHTML = newTodoText;
