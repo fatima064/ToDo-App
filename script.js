@@ -40,9 +40,9 @@ function onAddTodo() {
 
 function onMarkAsComplete(todoIndex) {
     const todoList = document.getElementById('todo-container');
-    const allTodoItems = todoList.querySelectorAll("li");
-    const todoTextToUpdate = allTodoItems[todoIndex].querySelector('p');
-    todoTextToUpdate.className = 'complete';
+    const todoItem = todoList.querySelector(`li[data-index='${todoIndex}']`);
+    const todoTextToUpdate = todoItem.querySelector('p');
+    todoTextToUpdate.classList.add('complete');
 }
 
 function onDeleteTodo(todoIndex) {
